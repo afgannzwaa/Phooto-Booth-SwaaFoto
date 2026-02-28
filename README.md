@@ -28,9 +28,5 @@ SwaaFoto Studio adalah aplikasi *web-based photo booth* estetik yang dirancang u
 5.  Lihat hasilnya di layar *slideshow*.
 6.  Klik **"SIMPAN 5 FILE"** untuk mengunduh semua koleksi foto kamu.
 
-## 📸 Tampilan Preview
-
-*(Tips: Tambahkan screenshot aplikasi kamu di sini agar profil GitHub kamu lebih menarik!)*
-
 ---
 **Developed with ❤️ by Afgan**
