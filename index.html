@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rating Boss😏</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #080808;
+            --card: #121212;
+            --accent: #ffffff;
+            --border: #222222;
+            --text-muted: #777777;
+            --error: #ff4d4d;
+        }
+
+        * { box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        body {
+            background-color: var(--bg);
+            color: white;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 12px 28px;
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            margin-bottom: 35px;
+            background: rgba(255,255,255,0.02);
+        }
+
+        .nav-link:hover {
+            color: white;
+            border-color: white;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 440px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 45px 35px;
+            border-radius: 32px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 { font-weight: 800; font-size: 1.6rem; margin: 0 0 12px; letter-spacing: -0.5px; }
+        p.desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 35px; line-height: 1.6; }
+
+        .form-group { margin-bottom: 25px; }
+        
+        label { 
+            display: block; 
+            font-size: 0.7rem; 
+            font-weight: 700; 
+            color: var(--text-muted); 
+            margin-bottom: 10px; 
+            text-transform: uppercase;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            background: #181818;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            color: white;
+            padding: 16px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #555;
+            background: #1d1d1d;
+            transform: scale(1.01);
+        }
+
+        .anon-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: -10px 0 25px 0;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            width: fit-content;
+        }
+
+        .anon-wrapper input { width: 18px; height: 18px; cursor: pointer; accent-color: white; }
+
+        textarea { height: 130px; resize: none; }
+
+        .btn-send {
+            width: 100%;
+            background: var(--accent);
+            color: black;
+            border: none;
+            padding: 18px;
+            border-radius: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-send:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+        }
+
+        #error-box {
+            display: none;
+            background: rgba(255, 77, 77, 0.1);
+            color: var(--error);
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 77, 77, 0.2);
+            text-align: center;
+        }
+
+        .masked {
+            color: #444 !important;
+            letter-spacing: 5px;
+            background: #0f0f0f !important;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="https://afgannzwaa.github.io/Phooto-Booth-SwaaFoto/" class="nav-link">
+        Cek Website Swaafoto
+    </a>
+
+    <div class="container">
+        <h1>Berikan masukan</h1>
+        <p class="desc">Karena koreksi dari kalian dapat membuat developer menjadi berkembang dan masukan dari kalian akan dibaca satu persatu dengan baik 😇</p>
+
+        <form id="feedbackForm" action="https://formspree.io/f/mnjbynoj" method="POST">
+            
+            <div class="form-group">
+                <label>Nama Pengirim</label>
+                <input type="text" name="Nama_Asli" id="senderName" placeholder="Masukkan nama kamu" required>
+            </div>
+
+            <label class="anon-wrapper">
+                <input type="checkbox" id="anonToggle">
+                Kirim sebagai Anonymous
+                <input type="hidden" name="Status_Kirim" id="modeKirim" value="Public">
+            </label>
+
+            <div class="form-group">
+                <label>Pesan Tentang Web</label>
+                <textarea name="Pesan" id="message" placeholder="Tuliskan masukanmu..." required></textarea>
+            </div>
+
+            <div id="error-box"></div>
+
+            <button type="submit" class="btn-send" id="btnText">Kirim Feedback</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('feedbackForm');
+        const message = document.getElementById('message');
+        const senderName = document.getElementById('senderName');
+        const errorBox = document.getElementById('error-box');
+        const anonToggle = document.getElementById('anonToggle');
+        const modeKirim = document.getElementById('modeKirim');
+        const btnText = document.getElementById('btnText');
+
+        let originalName = "";
+
+        // Gimmick Masking
+        anonToggle.addEventListener('change', function() {
+            if (this.checked) {
+                if (senderName.value.trim() === "") {
+                    this.checked = false;
+                    senderName.focus();
+                    return;
+                }
+                originalName = senderName.value;
+                senderName.value = "••••••••";
+                senderName.classList.add('masked');
+                senderName.readOnly = true;
+                modeKirim.value = "ANONYMOUS GIMMICK (Nama terekam)";
+            } else {
+                senderName.value = originalName;
+                senderName.classList.remove('masked');
+                senderName.readOnly = false;
+                modeKirim.value = "Public";
+            }
+        });
+
+        // Filter Spam & Kata Kotor
+        const forbidden = ['anjing', 'bangsat', 'tolol', 'memek', 'kontol', 'slot', 'spam', '@gmail.com', '@yahoo.com', 'http', '.com'];
+
+        form.addEventListener('submit', function(e) {
+            if (anonToggle.checked) senderName.value = originalName;
+
+            const msgVal = message.value.toLowerCase();
+            const nameVal = senderName.value.toLowerCase();
+            errorBox.style.display = 'none';
+
+            // Cek Kata Kotor & Email/Link
+            let isBad = forbidden.some(word => msgVal.includes(word) || nameVal.includes(word));
+            
+            if (isBad) {
+                e.preventDefault();
+                errorBox.innerText = "Sistem menolak kata kasar, email, atau link luar demi keamanan.";
+                errorBox.style.display = 'block';
+                if (anonToggle.checked) senderName.value = "••••••••";
+                return;
+            }
+
+            btnText.innerText = "Sedang Mengirim...";
+            btnText.style.opacity = "0.7";
+            btnText.style.pointerEvents = "none";
+        });
+    </script>
+
+</body>
+</html>
