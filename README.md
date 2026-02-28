@@ -30,3 +30,47 @@ SwaaFoto Studio adalah aplikasi *web-based photo booth* estetik yang dirancang u
 
 ---
 **Developed with ❤️ by Afgan**
+
+# 📸 SwaaFoto Studio — Exclusive Photo Booth Web
+
+SwaaFoto Studio adalah aplikasi *web-based photo booth* estetik yang dikembangkan secara eksklusif oleh **Afgan**. Proyek ini menggabungkan desain minimalis modern dengan teknologi kamera real-time untuk menciptakan pengalaman studio foto profesional di dalam browser.
+
+---
+
+## ✨ Fitur Utama (Original by Afgan)
+
+* **Afgan’s Signature Layout:** Desain antarmuka premium dengan tipografi *Playfair Display* dan *Plus Jakarta Sans*.
+* **Real-time Camera & Aesthetic Filters:** Pilihan filter khusus (Noir, Dusk, Vintage, dan Rio de Janeiro) yang dikalibrasi oleh **Afgan**.
+* **Smart Timer & Progress Bar:** Sistem hitung mundur interaktif untuk hasil jepretan yang presisi.
+* **Auto-Slideshow Loop:** Hasil foto ditampilkan secara otomatis satu per satu setiap 1.5 detik setelah sesi berakhir.
+* **Interactive Polaroid Zoom:** Mode *lightbox* untuk melihat detail foto hasil jepretan dengan efek blur yang halus.
+* **Multi-Format Export:** Mengunduh 4 foto satuan sekaligus 1 foto *strip* khas **SwaaFoto** (Total 5 file).
+* **Ambient Background Music:** Dilengkapi dengan kontrol musik latar untuk suasana pemotretan yang lebih hidup.
+
+## 🛠️ Teknologi yang Digunakan
+
+* **Vanilla JavaScript:** Logika kamera, filter, dan sistem *slideshow* otomatis.
+* **HTML5 Canvas API:** Digunakan untuk merender *Watermark* **"By Afgan"** pada hasil foto.
+* **CSS3 Advanced UI:** Animasi transisi dan *layouting* responsif yang rapi di semua ukuran layar.
+
+## 🚀 Cara Menjalankan
+
+1. Akses aplikasi melalui browser (Chrome/Safari direkomendasikan).
+2. Izinkan akses kamera.
+3. Klik **"Ambil Foto"** dan nikmati sesi pemotretan otomatis.
+4. Simpan hasilnya langsung ke perangkat Anda.
+
+---
+
+## ⚠️ Hak Cipta & Lisensi (Copyright)
+
+**Seluruh hak cipta atas kode sumber, desain, dan logika aplikasi ini dimiliki sepenuhnya oleh AFGAN.**
+
+* **Dilarang keras** menduplikasi, memodifikasi, atau menyebarluaskan kode ini tanpa izin tertulis dari **Afgan**.
+* **Dilarang keras** menghapus atribusi nama atau *watermark* **Afgan** dari dalam kode maupun hasil foto.
+* Penggunaan komersial dalam bentuk apa pun tidak diizinkan tanpa kontrak resmi.
+
+Untuk detail hukum lebih lanjut, silakan tinjau file [LICENSE](./LICENSE).
+
+---
+**Developed with ❤️ and Passion by [AFGAN](https://github.com/afgan-username)**
