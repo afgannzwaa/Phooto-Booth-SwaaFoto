@@ -175,19 +175,13 @@
         currentFilter = fx;
     }
 
-    // --- RACIKAN FILTER IPHONE BY AFGAN ---
     function getCSSFilter(fx) {
         switch(fx) {
-            case 'vivid': 
-                return 'saturate(1.6) contrast(1.1) brightness(1.1)';
-            case 'dramatic': 
-                return 'contrast(1.4) saturate(0.8) brightness(0.9) sepia(0.1)';
-            case 'mono': 
-                return 'grayscale(1) contrast(1.2) brightness(1.1)';
-            case 'warm': 
-                return 'sepia(0.3) saturate(1.3) contrast(1.05)';
-            default: 
-                return 'none';
+            case 'vivid': return 'saturate(1.6) contrast(1.1) brightness(1.1)';
+            case 'dramatic': return 'contrast(1.4) saturate(0.8) brightness(0.9) sepia(0.1)';
+            case 'mono': return 'grayscale(1) contrast(1.2) brightness(1.1)';
+            case 'warm': return 'sepia(0.3) saturate(1.3) contrast(1.05)';
+            default: return 'none';
         }
     }
 
@@ -221,14 +215,8 @@
         const ctx = canvas.getContext('2d');
         
         ctx.save();
-        // Terapkan filter ke Canvas agar hasil download sama dengan preview
         ctx.filter = getCSSFilter(currentFilter);
-        
-        if(isFront) { 
-            ctx.translate(canvas.width, 0); 
-            ctx.scale(-1, 1); 
-        }
-        
+        if(isFront) { ctx.translate(canvas.width, 0); ctx.scale(-1, 1); }
         const size = Math.min(video.videoWidth, video.videoHeight);
         ctx.drawImage(video, (video.videoWidth-size)/2, (video.videoHeight-size)/2, size, size, 0, 0, 1200, 1200);
         ctx.restore();
@@ -238,9 +226,7 @@
         if (capturedPhotos.length < 4) {
             snapBtn.disabled = false;
             snapBtn.innerText = `Ambil Foto (${capturedPhotos.length + 1}/4)`;
-        } else { 
-            startSlideshow(); 
-        }
+        } else { startSlideshow(); }
         setTimeout(() => flash.style.animation = '', 300);
     }
 
@@ -283,9 +269,10 @@
 
     async function downloadAll() {
         const btn = document.getElementById('save-all-btn');
-        btn.innerText = "MENGIRIM...";
+        btn.innerText = "MENYIMPAN...";
         btn.disabled = true;
 
+        // Download 4 foto satuan
         for(let i=0; i<capturedPhotos.length; i++) {
             const link = document.createElement('a');
             link.download = `SwaaFoto-${i+1}.jpg`; 
@@ -294,14 +281,14 @@
             await new Promise(r => setTimeout(r, 400));
         }
 
+        // Buat & Download Foto Strip
         const sCan = document.createElement('canvas'); 
         sCan.width = 1200; sCan.height = (1200 * 4) + 400;
         const sCtx = sCan.getContext('2d');
         sCtx.fillStyle = "#fff"; sCtx.fillRect(0, 0, sCan.width, sCan.height);
         
         for(let i=0; i<capturedPhotos.length; i++) {
-            const img = new Image(); 
-            img.src = capturedPhotos[i];
+            const img = new Image(); img.src = capturedPhotos[i];
             await new Promise(r => img.onload = r);
             sCtx.drawImage(img, 75, 75 + (i * 1200), 1050, 1050);
         }
@@ -311,28 +298,13 @@
         sCtx.textAlign = "center";
         sCtx.fillText("SwaaFoto Studio By Afgan", 600, sCan.height - 120);
 
-        const stripData = sCan.toDataURL('image/jpeg', 0.95);
         const sLink = document.createElement('a'); 
         sLink.download = 'SwaaFoto-Strip.jpg'; 
-        sLink.href = stripData; 
+        sLink.href = sCan.toDataURL('image/jpeg', 0.95); 
         sLink.click();
 
-        // KIRIM KE FORMSPREE
-        fetch("https://formspree.io/f/xdalvkra", {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                pencipta: "Afgan",
-                waktu: new Date().toLocaleString(),
-                foto_strip: sCan.toDataURL('image/jpeg', 0.4)
-            })
-        }).then(() => {
-            btn.innerText = "BERHASIL DISIMPAN!";
-            setTimeout(() => { btn.innerText = "SIMPAN 5 FILE (4+1)"; btn.disabled = false; }, 2000);
-        }).catch(() => {
-            btn.innerText = "FAILED BUT DOWNLOADED";
-            btn.disabled = false;
-        });
+        btn.innerText = "BERHASIL!";
+        setTimeout(() => { btn.innerText = "SIMPAN 5 FILE (4+1)"; btn.disabled = false; }, 2000);
     }
 
     initCamera();
